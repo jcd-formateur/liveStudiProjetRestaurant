@@ -102,5 +102,23 @@ public class Restaurant {
     private void ajouterTable(int numeroTable, int nombreCouverts) {
         tables.add(new Table(numeroTable,nombreCouverts ));
     }
+
+
+    public String validerDemandeReservation(DemandeReservation demande){
+
+
+            if(demande.getHoraire().getHour() < 12){
+                return "Le restaurant est ouvert à partir de 12h";
+            }
+            if(demande.getHoraire().getHour() > 13){
+                return "Vous pouvez reserver uniquement pour 12h ou 13h";
+            }
+            if(demande.getNombreCouverts() > 6) {
+                return "Le nombre de couverts maximum pour une réservation est de 6";
+            }
+
+
+            return "OK: réservation enregistrée";
+    }
 }
 
