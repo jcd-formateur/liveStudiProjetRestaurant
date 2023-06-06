@@ -64,7 +64,29 @@ class LiveStudiProjetRestaurantUnitTests {
                 , "Michel"
                 , "Dupont"
         );
-        assertEquals("OK: réservation enregistrée",
+        assertEquals("Vous pouvez reserver uniquement pour 12h ou 13h",
                 restaurant.validerDemandeReservation(demande));
     }
+
+    @Test
+    void testOrdreTables() {
+        System.out.println(restaurant.getTables());
+        assertEquals(2, restaurant.getTables().get(0).getNombreCouverts());
+        assertEquals(6, restaurant.getTables().get(3).getNombreCouverts());
+    }
+
+    @Test
+    void testReservation() {
+        DemandeReservation demande = new DemandeReservation(6
+                , LocalDateTime.of(2023, 6, 21, 13, 0)
+                , "Michel"
+                , "Dupont"
+        );
+        String reponse = restaurant.validerDemandeReservation(demande);
+        assertEquals("OK: réservation enregistrée", reponse);
+
+        String reponse2 = restaurant.validerDemandeReservation(demande);
+        assertNotEquals("OK: réservation enregistrée", reponse2);
+    }
+
 }

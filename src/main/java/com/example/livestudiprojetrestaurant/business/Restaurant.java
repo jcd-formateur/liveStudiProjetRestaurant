@@ -1,6 +1,7 @@
 package com.example.livestudiprojetrestaurant.business;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 public class Restaurant {
 
@@ -101,6 +102,12 @@ public class Restaurant {
 
     private void ajouterTable(int numeroTable, int nombreCouverts) {
         tables.add(new Table(numeroTable,nombreCouverts ));
+
+        tables.sort(Comparator.comparing(Table::getNombreCouverts));
+    }
+
+    private void ajouterReservation(Reservation reservation){
+        reservations.add(reservation);
     }
 
 
@@ -113,12 +120,42 @@ public class Restaurant {
             if(demande.getHoraire().getHour() > 13){
                 return "Vous pouvez reserver uniquement pour 12h ou 13h";
             }
+            if(demande.getHoraire().getHour() == 13
+                    && demande.getHoraire().getMinute() > 0)   {
+                return "Vous pouvez reserver uniquement pour 12h ou 13h";
+            }
             if(demande.getNombreCouverts() > 6) {
                 return "Le nombre de couverts maximum pour une réservation est de 6";
             }
 
+            for(Table table : tables){
+                if(table.getNombreCouverts() >= demande.getNombreCouverts()){
 
-            return "OK: réservation enregistrée";
+                    boolean tableDejaReservee = false;
+                    for(Reservation reservation : reservations){
+                        if(reservation.getHoraire().equals(demande.getHoraire())
+                         && (reservation.getTable().getNumeroTable() == table.getNumeroTable()))
+                                tableDejaReservee = true;
+                    }
+
+                    if(tableDejaReservee) {
+                        continue;
+                    } else {
+                        // OK : on peut reserver cette table
+                       Reservation reservation = new Reservation(demande.getNombreCouverts(),
+                                demande.getHoraire(),
+                                demande.getPrenom(),
+                                demande.getNom());
+                       reservation.setTable(table);
+                       ajouterReservation(reservation);
+                       return "OK: réservation enregistrée";
+                    }
+
+                }
+            }
+            return "Désolé, il n'y a plus de tables disponibles";
+
+
     }
 }
 
