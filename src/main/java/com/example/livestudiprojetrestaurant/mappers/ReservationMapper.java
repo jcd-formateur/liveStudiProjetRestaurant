@@ -15,6 +15,11 @@ public class ReservationMapper {
                 , reservation.getNom()
         );
 
+        entity.setTable(TableMapper.fromBusinessToEntity(reservation.getTable()));
+
+        // non terminé : rajouter dans Reservation un attribut Restaurant
+        //entity.setRestaurant(RestaurantMapper.fromBusinessToEntity(reservation.get));
+
         return entity;
     }
 }

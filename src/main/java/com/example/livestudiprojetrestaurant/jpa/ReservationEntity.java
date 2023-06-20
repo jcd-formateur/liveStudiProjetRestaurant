@@ -1,10 +1,7 @@
 package com.example.livestudiprojetrestaurant.jpa;
 
 import com.example.livestudiprojetrestaurant.business.Table;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
@@ -20,7 +17,11 @@ public class ReservationEntity {
     private String prenom;
     private String nom;
 
-    //private Table table;
+    @ManyToOne
+    private TableEntity table;
+
+    @ManyToOne
+    private RestaurantEntity restaurant;
 
     public ReservationEntity() {
     }
@@ -63,14 +64,30 @@ public class ReservationEntity {
     public void setNom(String nom) {
         this.nom = nom;
     }
-/*
-    public Table getTable() {
+
+    public TableEntity getTable() {
         return table;
     }
 
-    public void setTable(Table table) {
+    public void setTable(TableEntity table) {
         this.table = table;
-    }*/
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public RestaurantEntity getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(RestaurantEntity restaurant) {
+        this.restaurant = restaurant;
+    }
 
     @Override
     public String toString() {

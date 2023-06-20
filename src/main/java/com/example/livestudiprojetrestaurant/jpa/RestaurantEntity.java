@@ -2,6 +2,9 @@ package com.example.livestudiprojetrestaurant.jpa;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name="restaurants")
 public class RestaurantEntity {
@@ -14,6 +17,10 @@ public class RestaurantEntity {
     private String adresse;
     private String telephone;
     private String email;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "restaurant_id")
+    private List<TableEntity> tables = new ArrayList<>();
 
     public RestaurantEntity() {
     }
@@ -55,6 +62,26 @@ public class RestaurantEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public List<TableEntity> getTables() {
+        return tables;
+    }
+
+    public void setTables(List<TableEntity> tables) {
+        this.tables = tables;
+    }
+
+    public void addTable(TableEntity tableEntity){
+        tables.add(tableEntity);
     }
 
     @Override
