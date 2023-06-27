@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 class LiveStudiProjetRestaurantApplicationTests {
@@ -41,18 +42,28 @@ class LiveStudiProjetRestaurantApplicationTests {
 
     @Test
     void testReservation(){
-        TableEntity entityTable = new TableEntity(1, 4);
-        tableRepository.save(entityTable);
+        //TableEntity entityTable = new TableEntity(1, 4);
+        //tableRepository.save(entityTable);
 
-        Reservation reservation = new Reservation(4
-                , LocalDateTime.of(2023, 6, 21, 10, 0)
-                , "Michel"
-                , "Dupont"
-        );
+        TableEntity entityTable;
+        Optional<TableEntity> optionalTable = tableRepository.findById(1);
+        if(optionalTable.isPresent()) {
 
-        ReservationEntity entityReservation = ReservationMapper.fromBusinessToEntity(reservation);
-        entityReservation.setTable(entityTable);
-        reservationRepository.save(entityReservation);
+            entityTable = optionalTable.get();
+
+            Reservation reservation = new Reservation(4
+                    , LocalDateTime.of(2023, 6, 21, 10, 0)
+                    , "Michel"
+                    , "Dupont"
+            );
+
+            ReservationEntity entityReservation = ReservationMapper.fromBusinessToEntity(reservation);
+            entityReservation.setTable(entityTable);
+
+            System.out.println(entityReservation);
+
+            //reservationRepository.save(entityReservation);
+        }
     }
 
 }

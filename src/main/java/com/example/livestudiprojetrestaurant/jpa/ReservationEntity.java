@@ -20,8 +20,8 @@ public class ReservationEntity {
     @ManyToOne
     private TableEntity table;
 
-    @ManyToOne
-    private RestaurantEntity restaurant;
+    //@ManyToOne
+    //private RestaurantEntity restaurant;
 
     public ReservationEntity() {
     }
@@ -80,7 +80,7 @@ public class ReservationEntity {
     public void setId(Integer id) {
         this.id = id;
     }
-
+/*
     public RestaurantEntity getRestaurant() {
         return restaurant;
     }
@@ -88,7 +88,7 @@ public class ReservationEntity {
     public void setRestaurant(RestaurantEntity restaurant) {
         this.restaurant = restaurant;
     }
-
+*/
     @Override
     public String toString() {
         return "ReservationEntity{" +

@@ -11,6 +11,9 @@ public class Reservation {
 
     private Table table;
 
+    public Reservation() {
+    }
+
     public Reservation(int nombreCouverts, LocalDateTime horaire, String prenom, String nom) {
         this.nombreCouverts = nombreCouverts;
         this.horaire = horaire;

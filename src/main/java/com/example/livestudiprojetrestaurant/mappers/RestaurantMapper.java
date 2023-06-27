@@ -21,4 +21,16 @@ public class RestaurantMapper {
 
         return entity;
     }
+
+    public static Restaurant fromEntityToBusiness(RestaurantEntity entity){
+        Restaurant resto = new Restaurant();
+        resto.setNom(entity.getNom());
+        for (TableEntity tableEntity : entity.getTables()){
+            Table table = TableMapper.fromEntityToBusiness(tableEntity);
+            resto.addTable(table);
+        }
+
+        // à compléter....
+        return resto;
+    }
 }

@@ -72,6 +72,10 @@ public class Restaurant {
         this.reservations = reservations;
     }
 
+    public void addTable(Table table){
+        this.tables.add(table);
+    }
+
     @Override
     public String toString() {
         return "Restaurant{" +

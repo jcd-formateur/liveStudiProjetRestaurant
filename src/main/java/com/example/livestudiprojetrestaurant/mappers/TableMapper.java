@@ -13,4 +13,11 @@ public class TableMapper {
         entity.setNombreCouverts(table.getNombreCouverts());
         return entity;
     }
+
+    public static Table fromEntityToBusiness(TableEntity entity){
+        Table table = new Table();
+        table.setNumeroTable(entity.getNumeroTable());
+        table.setNombreCouverts(entity.getNombreCouverts());
+        return table;
+    }
 }
